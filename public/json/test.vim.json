@@ -1,0 +1,27 @@
+{
+  "script_id": "1",
+  "display_name": "test.vim",
+  "summary": "example utility script file -- used for testing vimonline",
+  "name": "test.vim",
+  "script_type": "utility",
+  "description": "This is an example of a utility script file. I added this so people could see what a script looks like in vimonline -- the file itself is empty. Originally this was just to show how people could use vimonline. Now I use it do do a final test of new code once I deploy it to production.",
+  "install_details": "Only an example of the install field",
+  "versions": [
+    {
+      "url": "http://www.vim.org/scripts/download_script.php?src_id=1",
+      "filename": "test.vim",
+      "script_version": "1.0",
+      "date": "2001-05-28",
+      "vim_version": "5.7",
+      "author": {
+        "user_id": "1",
+        "user_name": "scrott",
+        "first_name": "Scott",
+        "last_name": "Johnston",
+        "email": "scrott at users.sourceforge.net",
+        "homepage": ""
+      },
+      "release_notes": "Initial upload"
+    }
+  ]
+}

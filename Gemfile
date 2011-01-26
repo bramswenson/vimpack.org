@@ -2,24 +2,15 @@ source 'http://rubygems.org'
 
 gem 'rails', '3.0.3'
 gem 'pg'
-
-# Use some helpful generators
-gem 'rails3-generators'
-
-# Use haml templates
-gem 'haml', '>=3.0.24'
-gem 'haml-rails', '>=0.3.4'
-gem "compass", ">= 0.10.5"
-
-# use simple navigation
-gem 'simple-navigation'
-
-# Use meta_search for slick searching capabilities
+gem 'decent_exposure'
+gem 'haml'
+gem 'haml-rails'
 gem 'meta_search'
+gem 'foreigner'
 
 group :development, :test, :console do
+  gem 'rails3-generators'
   gem 'ruby-debug19'
-  #gem 'ruby-debug'
   gem 'mongrel', '>=1.2.0.pre2'
   gem 'capybara'
   gem 'database_cleaner', '>=0.6.0'
