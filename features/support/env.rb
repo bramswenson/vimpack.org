@@ -59,4 +59,11 @@ if defined?(ActiveRecord::Base)
     DatabaseCleaner.strategy = :truncation
   rescue LoadError => ignore_if_database_cleaner_not_present
   end
+  Before do
+    Version.destroy_all
+    Script.destroy_all
+    Author.destroy_all
+  end
+  After do
+  end
 end
