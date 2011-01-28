@@ -1,4 +1,6 @@
+require 'jsonables'
 class Script < ActiveRecord::Base
+  include Jsonables
   SCRIPT_TYPES = %w{ utility colorscheme syntax }
   has_many :versions, :dependent => :destroy
   has_one  :latest_version, :foreign_key => :latest_for_id, :dependent => :destroy, :class_name => 'Version'
@@ -8,6 +10,11 @@ class Script < ActiveRecord::Base
             :presence => true
   validates :script_type, :presence => true, 
             :inclusion => { :in => SCRIPT_TYPES }
+
+  jsonable :simple,  :only =>    [ :name, :script_type, :summary ],
+                     :methods => [ :repo_url, :version ]
+  jsonable :current, :except =>  [ :id, :created_at, :updated_at ],
+                     :methods => [ :repo_url, :script_url, :url, :latest ]
 
   def repo_url
     "http://github.com/vim-scripts/#{name}.git"
@@ -19,6 +26,10 @@ class Script < ActiveRecord::Base
 
   def latest
     latest_version.as_json
+  end
+
+  def version
+    return latest_version.script_version
   end
 
   def self.from_json(json_input)
@@ -40,10 +51,4 @@ class Script < ActiveRecord::Base
     script
   end
 
-  def as_json(options=nil, *args)
-    options ||= {}
-    options.reverse_merge!(:except  => [ :id, :created_at, :updated_at ],
-                           :methods => [ :repo_url, :script_url, :url, :latest ]) 
-    super(options, *args)
-  end
 end
