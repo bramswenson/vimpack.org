@@ -8,7 +8,7 @@ describe Version do
       @version.should be_valid
     end
 
-    %w{ script_id script_version date author_id }.each do |attr|
+    %w{ script_id date author_id }.each do |attr|
       it attr do
         @version.send("#{attr}=".to_sym, nil)
         @version.should_not be_valid 

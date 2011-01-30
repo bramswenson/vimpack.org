@@ -7,7 +7,7 @@ describe Author do
   end
 
   context "should not be valid without" do
-    %w{ user_id user_name first_name last_name }.each do |attr|
+    %w{ user_id user_name }.each do |attr|
       it attr do
         @author.send("#{attr}=".to_sym, nil)
         @author.should_not be_valid 

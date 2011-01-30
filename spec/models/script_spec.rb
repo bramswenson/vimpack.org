@@ -4,11 +4,12 @@ describe Script do
 
   context "should not be valid" do
     before(:each) do
+      Script.destroy_all
       @script = Factory(:script)
       @script.should be_valid
     end
     context "without" do
-      %w{ script_id display_name summary name description script_type }.each do |attr|
+      %w{ script_id display_name name script_type }.each do |attr|
         it attr do
           @script.send("#{attr}=".to_sym, nil)
           @script.should_not be_valid 
@@ -57,6 +58,9 @@ describe Script do
   context ".as_json" do
 
     before(:each) do
+      Script.destroy_all
+      Author.destroy_all
+      Version.destroy_all
       @version = Factory.create(:pathogen_version, :script_version => '1.2')
       @script = @version.script
     end
@@ -65,30 +69,11 @@ describe Script do
       JSON.pretty_generate(
         JSON.parse(@script.to_json)
       ).should == JSON.pretty_generate(JSON.parse(%Q{{
-        "description": "Pathogen...simple but effective for good use",
-        "display_name": "pathogen.vim",
-        "install_details": "http://vimpack.org/",
         "name": "pathogen.vim",
-        "script_id": 2332,
         "script_type": "utility",
         "summary": "Pathogen...simple but effective",
         "repo_url": "http://github.com/vim-scripts/pathogen.vim.git",
-        "script_url": "http://www.vim.org/scripts/script.php?script_id=2332",
-        "latest": {
-          "date": "2008-12-25",
-          "filename": "pathogen.vim",
-          "release_notes": "Pathogen..dead simple vim runtimepath management",
-          "script_version": "1.2",
-          "vim_version": "7.2",
-          "author": {
-            "email": "vimNOSPAM@tpope.com",
-            "first_name": "Tim",
-            "homepage": "http://tpo.pe/",
-            "last_name": "Pope",
-            "user_id": 1331,
-            "user_name": "tpope"
-          }
-        }
+        "version": "1.2"
       }}))
     end
   end
