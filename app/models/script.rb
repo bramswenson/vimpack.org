@@ -1,18 +1,18 @@
 require 'jsonables'
 class Script < ActiveRecord::Base
   include Jsonables
-  SCRIPT_TYPES = %w{ utility colorscheme syntax }
+  SCRIPT_TYPES = [ 'utility', 'color scheme', 'syntax', 'ftplugin', 'indent', 
+                   'game', 'plugin', 'patch' ]
   has_many :versions, :dependent => :destroy
   has_one  :latest_version, :foreign_key => :latest_for_id, :dependent => :destroy, :class_name => 'Version'
   has_many :authors, :through => :versions, :uniq => true, :dependent => :destroy
 
-  validates :script_id, :display_name, :summary, :name, :description, 
-            :presence => true
+  validates :script_id, :display_name, :name, :presence => true, :uniqueness => true
   validates :script_type, :presence => true, 
             :inclusion => { :in => SCRIPT_TYPES }
 
   jsonable :simple,  :only =>    [ :name, :script_type, :summary ],
-                     :methods => [ :repo_url, :version ]
+                     :methods => [ :repo_url, :version ], :default => true
   jsonable :current, :except =>  [ :id, :created_at, :updated_at ],
                      :methods => [ :repo_url, :script_url, :url, :latest ]
 
@@ -32,6 +32,10 @@ class Script < ActiveRecord::Base
     return latest_version.script_version
   end
 
+  def self.from_file(filename)
+    self.from_json(File.open(filename, 'r').read)
+  end
+
   def self.from_json(json_input)
     begin
       input = JSON.parse(json_input)
@@ -40,6 +44,7 @@ class Script < ActiveRecord::Base
       Rails.logger.error(e.backtrace)
     end
     versions = input.delete('versions')
+    puts input['script_type']
     script = Script.create!(input)
     versions.each do |version_input|
       version_input.delete('url')

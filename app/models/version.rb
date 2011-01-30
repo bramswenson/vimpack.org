@@ -1,21 +1,18 @@
+require 'jsonables'
 class Version < ActiveRecord::Base
+  include Jsonables
   belongs_to :script
   belongs_to :latest_for, :class_name => 'Script'
   belongs_to :author
-  validates :script_id, :script_version, :date, :author_id, :presence => true
+  validates :script_id, :date, :author_id, :presence => true
   validates :latest_for_id, :uniqueness => true, :allow_nil => true
   attr_accessor :setting_latest_version
   after_save :set_latest_version!
 
-  def as_json(options=nil, *args)
-    options ||= {}
-    options.reverse_merge!(:except  => [ :id, :created_at, :updated_at, 
-                                         :latest_for_id, :script_id, 
-                                         :author_id ],
-                           :include => [ :author ])
-    super(options, *args)
-  end
-  
+  jsonable :simple, :except  => [ :id, :created_at, :updated_at, 
+                                  :latest_for_id, :script_id, :author_id ],
+                    :include => [ :author ], :default => true
+
   private
 
     def set_latest_version!
