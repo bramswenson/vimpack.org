@@ -2,9 +2,13 @@ require 'spec_helper'
 
 describe Version do
   before(:each) do
+    ::Sunspot.session = ::Sunspot::Rails::StubSessionProxy.new(::Sunspot.session)
     Version.destroy_all
     Script.destroy_all
     Author.destroy_all
+  end
+  after(:each) do
+    ::Sunspot.session = ::Sunspot.session.original_session
   end
 
   context "should not be valid without" do

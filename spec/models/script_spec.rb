@@ -4,9 +4,13 @@ describe Script do
 
   context "should not be valid" do
     before(:each) do
+      setup_sunspot_server
       Script.destroy_all
       @script = Factory(:script)
       @script.should be_valid
+    end
+    after(:each) do
+      clean_sunspot_index
     end
     context "without" do
       %w{ script_id display_name name script_type }.each do |attr|

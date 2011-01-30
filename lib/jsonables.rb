@@ -1,5 +1,15 @@
 module Jsonables
 
+  class RoutingConstraint
+    def initialize(model)
+      @model = model
+    end
+   
+    def matches?(request)
+      @model.jsonables.keys.include?(request.params[:jsonable].to_sym)
+    end
+  end
+
   def self.included(base)
     base.extend(ClassMethods)
   end
