@@ -12,6 +12,7 @@ class CreateVersions < ActiveRecord::Migration
 
       t.timestamps
     end
+    add_index :versions, [ :script_version, :script_id ], :unique => true
   end
 
   def self.down

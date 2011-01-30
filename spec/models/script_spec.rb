@@ -35,10 +35,10 @@ describe Script do
     end
   end
 
-  context "Script.from_json" do
+  context "Script.from_scraper_json" do
     before(:all) do
       file = File.read(Rails.root.join('public', 'json', '2332-pathogen.vim.json'))
-      @script_from_file = Script.from_json(file)
+      @script_from_file = Script.from_scraper_json(file)
     end
     context "should return a script instance" do
       it "that is saved" do

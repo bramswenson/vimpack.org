@@ -1,6 +1,8 @@
 require 'jsonables'
+require 'scraper_script_updater'
 class Script < ActiveRecord::Base
   include Jsonables
+  include ScraperScriptUpdater::FromScraperJson
   SCRIPT_TYPES = [ 'utility', 'color scheme', 'syntax', 'ftplugin', 'indent', 
                    'game', 'plugin', 'patch' ]
   has_many :versions, :dependent => :destroy
@@ -30,30 +32,6 @@ class Script < ActiveRecord::Base
 
   def version
     return latest_version.script_version
-  end
-
-  def self.from_file(filename)
-    self.from_json(File.open(filename, 'r').read)
-  end
-
-  def self.from_json(json_input)
-    begin
-      input = JSON.parse(json_input)
-    rescue => e
-      Rails.logger.error("There was an error parsing the json file: #{e.message}")
-      Rails.logger.error(e.backtrace)
-    end
-    versions = input.delete('versions')
-    puts input['script_type']
-    script = Script.create!(input)
-    versions.each do |version_input|
-      version_input.delete('url')
-      author_input = version_input.delete('author')
-      author = Author.find_or_initialize_by_user_name(author_input['user_name'], author_input)
-      author.save! if author.new_record?
-      Version.create!(version_input.merge(:author => author, :script => script))
-    end
-    script
   end
 
 end

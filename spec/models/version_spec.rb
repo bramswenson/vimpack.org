@@ -1,6 +1,11 @@
 require 'spec_helper'
 
 describe Version do
+  before(:each) do
+    Version.destroy_all
+    Script.destroy_all
+    Author.destroy_all
+  end
 
   context "should not be valid without" do
     before(:each) do

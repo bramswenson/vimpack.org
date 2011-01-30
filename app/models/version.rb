@@ -5,6 +5,7 @@ class Version < ActiveRecord::Base
   belongs_to :latest_for, :class_name => 'Script'
   belongs_to :author
   validates :script_id, :date, :author_id, :presence => true
+  validates :script_version, :uniqueness => { :scope => :script_id }
   validates :latest_for_id, :uniqueness => true, :allow_nil => true
   attr_accessor :setting_latest_version
   after_save :set_latest_version!
