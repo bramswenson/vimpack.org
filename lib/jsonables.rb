@@ -20,7 +20,7 @@ module Jsonables
     protected
 
       def setup_as_json(name)
-        define_method :as_json do |options|
+        define_method :as_json do |options=nil|
           options ? super(options) :
                     super(self.class.jsonables[name.to_sym])
         end

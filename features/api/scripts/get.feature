@@ -18,7 +18,7 @@ Feature: Get Vim Script Info
         "script_type": "utility",
         "summary": "Pathogen...simple",
         "repo_url": "http://github.com/vim-scripts/pathogen.vim.git",
-        "version": "1.1"
+        "script_version": "1.1"
       }
       """
 
@@ -37,7 +37,7 @@ Feature: Get Vim Script Info
         "summary": "Pathogen...simple",
         "repo_url": "http://github.com/vim-scripts/pathogen.vim.git",
         "script_url": "http://www.vim.org/scripts/script.php?script_id=2332",
-        "latest": {
+        "latest_version": {
           "date": "2008-12-25",
           "filename": "pathogen.vim",
           "release_notes": "Pathogen...simple",

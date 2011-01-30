@@ -14,9 +14,10 @@ class Script < ActiveRecord::Base
             :inclusion => { :in => SCRIPT_TYPES }
 
   jsonable :simple,  :only =>    [ :name, :script_type, :summary ],
-                     :methods => [ :repo_url, :version ], :default => true
+                     :methods => [ :repo_url, :script_version ], 
+                     :default => true
   jsonable :current, :except =>  [ :id, :created_at, :updated_at ],
-                     :methods => [ :repo_url, :script_url, :url, :latest ]
+                     :methods => [ :repo_url, :script_url, :url, :latest_version ]
 
   def repo_url
     "http://github.com/vim-scripts/#{name}.git"
@@ -26,12 +27,6 @@ class Script < ActiveRecord::Base
     "http://www.vim.org/scripts/script.php?script_id=#{script_id}"
   end
 
-  def latest
-    latest_version.as_json
-  end
-
-  def version
-    return latest_version.script_version
-  end
+  delegate :script_version, :to => :latest_version
 
 end

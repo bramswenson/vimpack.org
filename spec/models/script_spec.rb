@@ -73,7 +73,7 @@ describe Script do
         "script_type": "utility",
         "summary": "Pathogen...simple but effective",
         "repo_url": "http://github.com/vim-scripts/pathogen.vim.git",
-        "version": "1.2"
+        "script_version": "1.2"
       }}))
     end
   end
