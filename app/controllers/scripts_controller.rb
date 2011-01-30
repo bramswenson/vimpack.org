@@ -6,9 +6,18 @@ class ScriptsController < ApplicationController
   expose(:script) do
     Script.find_by_name(params[:name]).send(jsonable)
   end
+  expose(:searched_scripts) do
+    Script.search do
+      keywords(params[:q])
+    end.results.map(&:simple_attributes)
+  end
 
   def show
     respond_with(script)
+  end
+
+  def search
+    respond_with(searched_scripts)
   end
 
 end

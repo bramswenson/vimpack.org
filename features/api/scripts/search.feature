@@ -18,6 +18,8 @@ Feature: Search for vim scripts
         {
           "name": "pathogen.vim",
           "script_type": "utility",
+          "summary": "Pathogen...simple",
+          "repo_url": "http://github.com/vim-scripts/pathogen.vim.git",
           "script_version": "1.1"
         }
        ]

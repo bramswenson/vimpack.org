@@ -5,7 +5,6 @@ gem 'pg'
 gem 'decent_exposure'
 gem 'haml'
 gem 'haml-rails'
-gem 'meta_search'
 gem 'foreigner'
 gem 'sunspot_rails', '>=1.2.1'
 

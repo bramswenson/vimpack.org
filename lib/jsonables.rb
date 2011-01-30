@@ -15,6 +15,9 @@ module Jsonables
       define_method name do
         self.to_json(self.class.jsonables[name.to_sym])
       end
+      define_method "#{name}_attributes".to_sym do
+        JSON.parse(self.to_json(self.class.jsonables[name.to_sym]))
+      end
     end
 
     protected
