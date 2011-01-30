@@ -19,6 +19,12 @@ class Script < ActiveRecord::Base
   jsonable :current, :except =>  [ :id, :created_at, :updated_at ],
                      :methods => [ :repo_url, :script_url, :url, :latest_version ]
 
+  searchable do
+    text :name, :default_boost => 2
+    text :summary
+    text :script_id
+  end
+
   def repo_url
     "http://github.com/vim-scripts/#{name}.git"
   end

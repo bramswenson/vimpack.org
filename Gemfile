@@ -7,6 +7,7 @@ gem 'haml'
 gem 'haml-rails'
 gem 'meta_search'
 gem 'foreigner'
+gem 'sunspot_rails', '>=1.2.1'
 
 group :development, :test, :console do
   gem 'rails3-generators'
