@@ -20,7 +20,8 @@ class Script < ActiveRecord::Base
                     :methods => [ :repo_url, :author, :script_version ]
 
   searchable :auto_index => true, :auto_remove => true do
-    text :name, :default_boost => 2
+    text :name,        :default_boost => 4
+    text :script_type, :default_boost => 2
     text :summary
     text :script_id
   end

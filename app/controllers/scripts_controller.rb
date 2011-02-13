@@ -9,6 +9,7 @@ class ScriptsController < ApplicationController
   expose(:searched_scripts) do
     Script.search do
       keywords(params[:q])
+      with(:script_type).any_of params[:script_type] if params[:script_type]
     end.results.map(&:simple_attributes)
   end
 
