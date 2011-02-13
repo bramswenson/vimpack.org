@@ -13,11 +13,11 @@ class Script < ActiveRecord::Base
   validates :script_type, :presence => true, 
             :inclusion => { :in => SCRIPT_TYPES }
 
-  jsonable :simple,  :only =>    [ :name, :script_type, :summary ],
-                     :methods => [ :repo_url, :script_version ], 
-                     :default => true
-  jsonable :current, :except =>  [ :id, :created_at, :updated_at ],
-                     :methods => [ :repo_url, :script_url, :url, :latest_version ]
+  jsonable :simple, :only =>    [ :name, :script_type, :summary ],
+                    :methods => [ :repo_url, :script_version ], 
+                    :default => true
+  jsonable :info,   :only =>    [ :name, :script_type, :description ],
+                    :methods => [ :repo_url, :author, :script_version ]
 
   searchable :auto_index => true, :auto_remove => true do
     text :name, :default_boost => 2
@@ -31,6 +31,10 @@ class Script < ActiveRecord::Base
 
   def script_url
     "http://www.vim.org/scripts/script.php?script_id=#{script_id}"
+  end
+
+  def author
+    self.latest_version.author.user_name
   end
 
   delegate :script_version, :to => :latest_version
