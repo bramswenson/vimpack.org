@@ -59,7 +59,7 @@ module ScraperScriptUpdater
     def clone_repo
       # clone/update git scripts repo
       if File::directory?(REPO_DIR)
-        system("cd #{REPO_DIR}; git pull")
+        system("cd #{REPO_DIR}; git fetch origin ; git merge origin/master")
       else
         system("git clone #{REPO_URL} #{REPO_DIR}")
       end

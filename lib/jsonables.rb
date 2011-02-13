@@ -6,7 +6,9 @@ module Jsonables
     end
    
     def matches?(request)
-      @model.jsonables.keys.include?(request.params[:jsonable].to_sym)
+      res = @model.jsonables.keys.include?(request.params[:jsonable].to_sym)
+      Rails.logger.debug("Routing constraint matches <#{res}>: request.params[:jsonable]")
+      res
     end
   end
 

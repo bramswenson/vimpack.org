@@ -32,7 +32,7 @@ GEM
     arel (2.0.7)
     awesome_print (0.3.1)
     builder (2.1.2)
-    capybara (0.4.1)
+    capybara (0.4.1.1)
       celerity (>= 0.7.9)
       culerity (>= 0.2.4)
       mime-types (>= 1.16)
@@ -81,7 +81,7 @@ GEM
       railties (~> 3.0)
     i18n (0.5.0)
     json (1.4.6)
-    json_pure (1.4.6)
+    json_pure (1.5.1)
     launchy (0.3.7)
       configuration (>= 0.0.5)
       rake (>= 0.8.1)
@@ -187,7 +187,7 @@ PLATFORMS
 
 DEPENDENCIES
   awesome_print
-  capybara
+  capybara (= 0.4.1.1)
   cucumber
   cucumber-rails
   database_cleaner (>= 0.6.0)
