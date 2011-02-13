@@ -12,7 +12,7 @@ group :development, :test, :console do
   gem 'rails3-generators'
   gem 'ruby-debug19'
   gem 'mongrel', '>=1.2.0.pre2'
-  gem 'capybara'
+  gem 'capybara', '0.4.1.1'
   gem 'database_cleaner', '>=0.6.0'
   gem 'cucumber-rails'
   gem 'cucumber'
