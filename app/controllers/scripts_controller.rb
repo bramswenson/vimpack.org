@@ -7,9 +7,11 @@ class ScriptsController < ApplicationController
     Script.find_by_name(params[:name]).send(jsonable)
   end
   expose(:searched_scripts) do
+    script_types = params[:script_type].blank? ? Array.new : params[:script_type].split(',')
+    Rails.logger.debug("SCRIPT_TYPES: #{script_types.inspect}")
     Script.search do
       keywords(params[:q])
-      with(:script_type).any_of params[:script_type].split(',') if params[:script_type]
+      with(:script_type).any_of script_types unless script_types.empty?
     end.results.map(&:simple_attributes)
   end
 
