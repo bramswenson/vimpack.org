@@ -54,12 +54,12 @@ module ScraperScriptUpdater
 
   class Runner
     REPO_URL = 'git://github.com/vim-scraper/scripts.git'
-    REPO_DIR = Rails.root.join('tmp', 'scripts-repo')
+    REPO_DIR = File.join('/tmp', 'scripts-repo')
 
     def clone_repo
       # clone/update git scripts repo
       if File::directory?(REPO_DIR)
-        system("cd #{REPO_DIR}; git fetch origin ; git merge origin/master")
+        system("cd #{REPO_DIR}; git pull origin master")
       else
         system("git clone #{REPO_URL} #{REPO_DIR}")
       end
