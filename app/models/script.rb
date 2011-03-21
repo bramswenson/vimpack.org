@@ -16,7 +16,7 @@ class Script < ActiveRecord::Base
   jsonable :simple, :only =>    [ :name, :script_type, :summary ],
                     :methods => [ :repo_url, :script_version ], 
                     :default => true
-  jsonable :info,   :only =>    [ :name, :script_type, :description ],
+  jsonable :info,   :only =>    [ :name, :script_type, :description, :summary ],
                     :methods => [ :repo_url, :author, :script_version ]
 
   searchable :auto_index => true, :auto_remove => true do
@@ -40,5 +40,18 @@ class Script < ActiveRecord::Base
   end
 
   delegate :script_version, :to => :latest_version
+
+  def self.limited_search(params)
+    params[:limit] ||= 100
+    params[:page]  ||= 1
+    script_types = params[:script_type].blank? ? Array.new : params[:script_type].split(',')
+    script_types = script_types.map { |st| st.gsub('_', ' ') }
+    Script.search do
+      keywords(params[:q]) unless params[:q].blank?
+      with(:script_type).any_of script_types unless script_types.empty?
+      order_by(:name, :asc)
+      paginate(:page => params[:page], :per_page => params[:limit])
+    end.results.map(&:simple_attributes)
+  end
 
 end

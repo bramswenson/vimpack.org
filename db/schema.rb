@@ -50,7 +50,4 @@ ActiveRecord::Schema.define(:version => 20110125144436) do
 
   add_index "versions", ["script_version", "script_id"], :name => "index_versions_on_script_version_and_script_id", :unique => true
 
-  add_foreign_key "versions", "authors", :name => "versions_author_id_fk"
-  add_foreign_key "versions", "scripts", :name => "versions_script_id_fk"
-
 end

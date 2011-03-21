@@ -2,8 +2,8 @@
 
 FactoryGirl.define do
   factory :version do
-    script { Factory.create(:script) }
-    author { Factory.create(:author) }
+    script { FactoryGirl.create(:script) }
+    author { FactoryGirl.create(:author) }
     filename { Faker::Lorem.words(1).join }
     script_version { Factory.next(:script_version) }
     date { Date.today }
@@ -11,8 +11,8 @@ FactoryGirl.define do
     release_notes { Faker::Lorem.words(20).join }
   end
   factory :pathogen_version, :parent => :version do
-    script { Factory.create(:pathogen) }
-    author { Factory.create(:timpope) }
+    script { FactoryGirl.create(:pathogen) }
+    author { FactoryGirl.create(:timpope) }
     filename 'pathogen.vim'
     script_version { Factory.next(:script_version) }
     date '2008-12-25'

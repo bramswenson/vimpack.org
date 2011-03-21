@@ -17,13 +17,13 @@ def setup_sunspot_server
     $sunspot_server = Sunspot::Rails::Server.new
     pid = fork { $sunspot_server.run }
     puts "WAITING FOR SOLR 20 SECONDS..."
-    sleep 20 # allow some time for the instance to spin up
+    sleep 30 # allow some time for the instance to spin up
     puts "SOLR STARTED"
     # shut down the Solr server
     at_exit do
       puts "STOPPING SOLR..."
       `ps ax|egrep "solr.*test"|grep -v grep|awk '{print $1}'|xargs kill`
-      sleep 2
+      sleep 4
       puts "SOLR STOPPED"
     end
   end
