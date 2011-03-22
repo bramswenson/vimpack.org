@@ -9,7 +9,8 @@ class Script < ActiveRecord::Base
   has_one  :latest_version, :foreign_key => :latest_for_id, :dependent => :destroy, :class_name => 'Version'
   has_many :authors, :through => :versions, :uniq => true, :dependent => :destroy
 
-  validates :script_id, :display_name, :name, :presence => true, :uniqueness => true
+  validates :display_name, :name, :presence => true, :uniqueness => true
+  validates :script_id, :presence => true, :numericality => true
   validates :script_type, :presence => true, 
             :inclusion => { :in => SCRIPT_TYPES }
 
